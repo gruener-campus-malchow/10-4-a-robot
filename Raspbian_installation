@@ -1,0 +1,3 @@
+Raspbian Jessie with PIXEL installation
+1. Zip oder torrent and unpack
+2. sudo dd if=*dein path* of=/dev/*dein Datenträger* bs=10m
