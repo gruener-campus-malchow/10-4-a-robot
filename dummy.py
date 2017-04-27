@@ -57,8 +57,23 @@ def mainEngineClass():
 		return;
 
 	#Function for acceleration
-	#Acc is a number for 0 to 100 for accelerating
+	#Acc is a number from -100 to 100 for accelerating
 	def accelerateEngine(acc):
+
+		if turnedOn:
+
+			if acc > 0:
+				acceleration = [5,7]
+			elif acc < 0:
+				acceleration = [3,5]
+				acc = acc * (-1)
+			elif acc == 0:
+				stopEngine()
+
+			thruster = ((acceleration[0]/acceleration[1])*acc)
+
+		else:
+			print "WARNING: Motor is offline"
 
 		return;
 
