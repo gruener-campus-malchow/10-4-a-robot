@@ -8,7 +8,7 @@ DC_BW_MAX = 3.0     #Maximaler Duty_Cycle-Wert fuer's Rueckwaertsfahren
 
 
 #@desc: rechnet Werte zwischen -1 bis 1 zu den oben deklarierten Duty_Cycle-werten um. 
-#@param value: integer zwischen -1 und 1
+#@param value: float zwischen -1 und 1
 #@return: berechneter Duty_Cycle-Wert
 def getDC(value):
     value = float(value)
