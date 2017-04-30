@@ -54,6 +54,7 @@ def mainEngineClass():
 
 			motor.stop()
 			GPIO.cleanup()
+			#accelerateEngine(0)
 
 			turnedOn = 0
 
@@ -99,12 +100,63 @@ def mainEngineClass():
 
 	#Function for emergency stop by sonic distance
 	def lookUpDistance():
-		toImportArray = ['RPi.GPIO as GPIO', 'time']
-		importIt(toImportArray)
+	
+		if turnedOn:
+		
+			toImportArray = ['RPi.GPIO as GPIO', 'time']
+			importIt(toImportArray)
+			
+			global TRIG_SONIC_SENSOR = 11
+			global ECHO_SONIC_SENSOR = 12
+			
+			GPIO.setmode(GPIO.BOARD)
+			GPIO.setup(TRIG_SONIC_SENSOR, GPIO.OUT)
+			GPIO.setup(ECHO_SONIC_SENSOR, GPIO.IN)
+			
+			loop()
+		
+		else:
+			print "WARNING: Motor is offline"
+		
 		return;
+	
+	#Function for looping the ultrasonic sensor
+	def loop():
+	
+		while True:
+			dis = distance()
+			if (dis <= 10):
+				GPIO.cleanup()
+			time.sleep(0.3)
+			
+		return;
+	
+	#Function for actually checking distance
+	def distance():
+	
+		GPIO.output(TRIG_SONIC_SENSOR, 0)
+		time.sleep(0.000002)
 
-	#Function for checkin g accelerations with gyro acceleration sensor
+		GPIO.output(TRIG_SONIC_SENSOR, 1)
+		time.sleep(0.00001)
+		GPIO.output(TRIG_SONIC_SENSOR, 0)
+
+		while GPIO.input(ECHO_SONIC_SENSOR) == 0:
+			a = 0
+			time1 = time.time()
+			
+		while GPIO.input(ECHO_SONIC_SENSOR) == 1:
+			a = 1
+			time2 = time.time()
+
+		during = time2 - time1
+		
+		return during * 340 / 2 * 100;
+	
+	#Function for checking accelerations with gyro acceleration sensor
 	def gyroAcceleration():
+	
 		toImportArray = ['smbus', 'math', 'time']
 		importIt(toImportArray)
+		
 		return;
