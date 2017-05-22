@@ -9,6 +9,7 @@ def mainEngineClass():
 		global DC_STOP   = 5.0		#Duty_Cycle-Value for stopping the motors
 		global DC_BW_MIN = 4.9		#Minimal Duty_Cycle-Value for moving backwards
 		global DC_BW_MIN = 3.0		#Maximal Duty_Cycle-Value for moving backwards
+		global turnedOn = 0
 
 		return;
 
@@ -34,10 +35,10 @@ def mainEngineClass():
 		GPIO.setmode(GPIO.BCM)
 		GPIO.setup(servoPIN, GPIO.OUT)
 
-		pwm_frequency = 100 #Normally between 40Hz-50Hz (25ms - 20ms)
+		pwm_frequency = 50 #Normally between 40Hz-50Hz (25ms - 20ms)
 		duty_cycle = 0 #Tastgrad = Impulsdauer/Impulsabstand
 		pause = 0.5 #Seconds
-		rate = 0.1
+		rate = 0.5
 
 		motor = GPIO.PWM(servoPIN, pwm_frequency) # GPIO 18 as PWM with 50Hz
 		motor.start(duty_cycle)
